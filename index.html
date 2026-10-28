@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dr. Muhammad Saad Obhaya — MBBS | Sir Ganga Ram Hospital</title>
+    <meta name="description" content="Official website of Dr. Muhammad Saad Obhaya (MBBS). Schedule appointments, access health guidance, and utilize automated symptom assessment." />
+    <meta name="theme-color" content="#0ea5e9" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Chatzy AI Chatbot Widget -->
+    <link rel="stylesheet" href="https://chatzy-kb-store.s3.amazonaws.com/icons/5ab07987-b5db-477c-82ff-1287e0883acb"/>
+    <script src="https://chatzy-kb-store.s3.amazonaws.com/icons/56706cc4-b3ba-4eba-9610-f2fb07008a5c" id="ec7f9b90-9d03-46d5-b90e-1c751bb6eb73" class="chatzy_widget_script" defer></script>
+
+    <style>
+      /* Ensure SaadCare Assistant is fixed on bottom-left */
+      .saadcare-assistant-root,
+      div:has(> button[aria-label="Open SaadCare Assistant"]) {
+        position: fixed !important;
+        left: 1.5rem !important;
+        right: auto !important;
+        bottom: 1.5rem !important;
+        z-index: 40 !important;
+      }
+      @media (max-width: 640px) {
+        .saadcare-assistant-root,
+        div:has(> button[aria-label="Open SaadCare Assistant"]) {
+          left: 1rem !important;
+          right: auto !important;
+          bottom: 1.25rem !important;
+        }
+      }
+      /* Ensure Chatzy AI Chatbot is fixed on bottom-right */
+      .chatzy-chatbot-wrapper {
+        position: fixed !important;
+        right: 1.5rem !important;
+        left: auto !important;
+        bottom: 1.5rem !important;
+        z-index: 999999999 !important;
+        margin: 0 !important;
+      }
+      @media (max-width: 640px) {
+        .chatzy-chatbot-wrapper {
+          right: 1rem !important;
+          bottom: 1.25rem !important;
+          margin: 0 !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 text-slate-900 antialiased font-sans">
+    <div id="root"></div>
+
+    <!-- Hidden Netlify Forms for 100% Automated Netlify Form Detection -->
+    <form name="appointment" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="referenceNo" />
+      <input type="text" name="patientName" />
+      <input type="text" name="patientPhone" />
+      <input type="email" name="patientEmail" />
+      <input type="text" name="appointmentDate" />
+      <input type="text" name="appointmentTime" />
+      <input type="text" name="serviceTitle" />
+      <input type="text" name="reason" />
+    </form>
+
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="phone" />
+      <input type="text" name="subject" />
+      <textarea name="message"></textarea>
+    </form>
+
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

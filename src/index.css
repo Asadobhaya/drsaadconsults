@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply text-slate-800 bg-slate-50 selection:bg-medical-200 selection:text-medical-900;
+  }
+}
+
+/* Custom UI Utilities */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-medical-700 via-medical-600 to-teal-600;
+}
+
+.gradient-bg {
+  @apply bg-gradient-to-br from-medical-600 via-medical-700 to-navy-800;
+}
+
+.pulse-badge {
+  box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4);
+  animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(14, 165, 233, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(14, 165, 233, 0);
+  }
+}
+
+/* Print styling for Patient Symptom Summary & Confirmation */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+}
+
+/* Floating Widgets Layout: SaadCare Assistant (Bottom-Left) vs Chatzy Chatbot (Bottom-Right) */
+.saadcare-assistant-root,
+div:has(> button[aria-label="Open SaadCare Assistant"]) {
+  position: fixed !important;
+  left: 1.5rem !important;
+  right: auto !important;
+  bottom: 1.5rem !important;
+  z-index: 40 !important;
+}
+
+@media (max-width: 640px) {
+  .saadcare-assistant-root,
+  div:has(> button[aria-label="Open SaadCare Assistant"]) {
+    left: 1rem !important;
+    right: auto !important;
+    bottom: 1.25rem !important;
+  }
+}
+
+.chatzy-chatbot-wrapper {
+  position: fixed !important;
+  right: 1.5rem !important;
+  left: auto !important;
+  bottom: 1.5rem !important;
+  z-index: 999999999 !important;
+  margin: 0 !important;
+}
+
+@media (max-width: 640px) {
+  .chatzy-chatbot-wrapper {
+    right: 1rem !important;
+    bottom: 1.25rem !important;
+    margin: 0 !important;
+  }
+}
