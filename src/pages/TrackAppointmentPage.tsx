@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Search, Calendar, Clock, User, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Search, Calendar, Clock, User, CheckCircle2, AlertCircle, ShieldCheck } from 'lucide-react';
 import { DataService } from '../services/dataService';
 import { Appointment } from '../types';
+import { isValidReferenceNo, rateLimiter, sanitizeText, stripHtml } from '../lib/security';
 
 const format12Hour = (time24: string): string => {
   if (!time24) return '';
@@ -28,18 +29,38 @@ export const TrackAppointmentPage: React.FC = () => {
     setSearched(false);
     setAppointment(null);
 
-    if (!refNo.trim()) {
+    // Rate Limit Lookup attempts (anti-scraping: 10 lookups per 5 mins per IP/client)
+    const rateCheck = rateLimiter.isAllowed('track-appointment', 10, 5 * 60 * 1000);
+    if (!rateCheck.allowed) {
+      setErrorMsg(`Too many tracking requests. Please wait ${rateCheck.retryAfterSec} seconds before searching again.`);
+      return;
+    }
+
+    const cleanRef = stripHtml(refNo).trim().toUpperCase();
+    const cleanVerification = stripHtml(verification).trim();
+
+    if (!cleanRef) {
       setErrorMsg('Please enter your Appointment Reference ID.');
       return;
     }
 
-    const match = await DataService.getAppointmentByReference(refNo.trim(), verification.trim());
+    if (!isValidReferenceNo(cleanRef)) {
+      setErrorMsg('Invalid Reference ID format. Expected format: SAAD-YYYY-XXXXXX');
+      return;
+    }
+
+    if (!cleanVerification) {
+      setErrorMsg('Security Verification Required: Please enter the email or phone number used during booking.');
+      return;
+    }
+
+    const match = await DataService.getAppointmentByReference(cleanRef, cleanVerification);
     setSearched(true);
 
     if (match) {
       setAppointment(match);
     } else {
-      setErrorMsg('No matching appointment found with the provided Reference ID and verification contact.');
+      setErrorMsg('No matching appointment verified. Ensure both the Reference ID and contact detail match your booking.');
     }
   };
 

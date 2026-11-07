@@ -23,5 +23,7 @@ export const supabase = createClient(ACTIVE_URL, ACTIVE_KEY, {
   auth: {
     persistSession: typeof window !== 'undefined',
     autoRefreshToken: isSupabaseConfigured,
+    detectSessionInUrl: true,
+    storage: typeof window !== 'undefined' ? window.sessionStorage : undefined, // Session storage isolates session to browser lifetime
   },
 });

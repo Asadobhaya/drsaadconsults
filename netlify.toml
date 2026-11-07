@@ -5,6 +5,26 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# Enforce Security Headers across all requests
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Enforce HTTPS
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    # Prevent clickjacking
+    X-Frame-Options = "DENY"
+    # Prevent MIME sniffing
+    X-Content-Type-Options = "nosniff"
+    # Enable Cross-Site Scripting filter
+    X-XSS-Protection = "1; mode=block"
+    # Enforce strict referrer policy
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # Permissions policy (restrict camera/mic unless explicitly asked)
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    # Content Security Policy (allow fonts, scripts, Supabase endpoints)
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.emailjs.com; frame-ancestors 'none';"
+
+# SPA Routing Redirect
 [[redirects]]
   from = "/*"
   to = "/index.html"

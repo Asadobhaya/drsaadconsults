@@ -62,7 +62,8 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2.5 text-xs">
               <li><Link to="/resources" className="hover:text-white transition">Patient Resources & Education</Link></li>
               <li><Link to="/privacy" className="hover:text-white transition">Privacy Policy</Link></li>
-              <li><Link to="/disclaimer" className="hover:text-white transition">Terms & Medical Disclaimer</Link></li>
+              <li><Link to="/terms" className="hover:text-white transition">Terms of Medical Service</Link></li>
+              <li><Link to="/disclaimer" className="hover:text-white transition">Medical Disclaimer</Link></li>
               <li><Link to="/login" className="hover:text-white transition">Doctor Portal Login</Link></li>
             </ul>
             <div className="mt-6 p-3 rounded-lg bg-slate-800/60 border border-slate-700/50 text-[11px] text-slate-400">

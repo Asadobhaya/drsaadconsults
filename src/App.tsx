@@ -4,6 +4,9 @@ import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { EmergencyBanner } from './components/layout/EmergencyBanner';
 import { SaadCareChatbot } from './components/chatbot/SaadCareChatbot';
+import { CookieBanner } from './components/layout/CookieBanner';
+import { StickyMobileCTA } from './components/layout/StickyMobileCTA';
+import { usePageMeta } from './lib/usePageMeta';
 
 // Pages
 import { HomePage } from './pages/HomePage';
@@ -17,7 +20,9 @@ import { SymptomResultPage } from './pages/SymptomResultPage';
 import { ContactPage } from './pages/ContactPage';
 import { ResourcesPage } from './pages/ResourcesPage';
 import { PrivacyPage } from './pages/PrivacyPage';
+import { TermsPage } from './pages/TermsPage';
 import { DisclaimerPage } from './pages/DisclaimerPage';
+import { ThankYouPage } from './pages/ThankYouPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 
 // Doctor Dashboard & Auth
@@ -28,12 +33,15 @@ const AppLayout: React.FC = () => {
   const location = useLocation();
   const isDashboardRoute = location.pathname.startsWith('/dashboard');
 
+  // Dynamic SEO Meta titles and descriptions per route
+  usePageMeta();
+
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 font-sans selection:bg-medical-200 selection:text-medical-900">
+    <div className="min-h-screen flex flex-col bg-slate-50 font-sans selection:bg-medical-200 selection:text-medical-900 pb-16 md:pb-0">
       {!isDashboardRoute && <EmergencyBanner />}
       {!isDashboardRoute && <Navbar />}
       
@@ -50,7 +58,9 @@ const AppLayout: React.FC = () => {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/resources" element={<ResourcesPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
           <Route path="/disclaimer" element={<DisclaimerPage />} />
+          <Route path="/thank-you" element={<ThankYouPage />} />
           
           {/* Doctor Portal Routes */}
           <Route path="/login" element={<DoctorLoginPage />} />
@@ -61,7 +71,9 @@ const AppLayout: React.FC = () => {
         </Routes>
       </main>
 
+      {!isDashboardRoute && <StickyMobileCTA />}
       {!isDashboardRoute && <SaadCareChatbot />}
+      {!isDashboardRoute && <CookieBanner />}
       {!isDashboardRoute && <Footer />}
     </div>
   );

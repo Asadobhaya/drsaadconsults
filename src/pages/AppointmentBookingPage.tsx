@@ -20,6 +20,7 @@ import {
 import { DataService } from '../services/dataService';
 import { EmailService } from '../services/emailService';
 import { MedicalService } from '../types';
+import { isValidEmail, isValidPhone, rateLimiter, stripHtml, validateUploadedFile } from '../lib/security';
 
 const format12Hour = (time24: string): string => {
   if (!time24) return '';
@@ -124,8 +125,9 @@ export const AppointmentBookingPage: React.FC = () => {
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      if (file.size > 5 * 1024 * 1024) {
-        setErrorMsg('File size must be less than 5MB.');
+      const validation = validateUploadedFile(file);
+      if (!validation.valid) {
+        setErrorMsg(validation.error || 'Invalid file.');
         return;
       }
       setDocumentFile(file);
@@ -138,10 +140,37 @@ export const AppointmentBookingPage: React.FC = () => {
       setErrorMsg('Please accept the medical disclaimer and privacy consent to proceed.');
       return;
     }
-    if (!patientName || !patientEmail || !patientPhone || !reason) {
-      setErrorMsg('Please fill in all required patient fields.');
+
+    // Rate Limiting (anti-abuse: 5 booking submissions per 15 minutes)
+    const rateCheck = rateLimiter.isAllowed('booking-create', 5, 15 * 60 * 1000);
+    if (!rateCheck.allowed) {
+      setErrorMsg(`Too many booking requests. Please wait ${rateCheck.retryAfterSec} seconds before submitting again.`);
       return;
     }
+
+    const cleanName = stripHtml(patientName).slice(0, 80);
+    const cleanEmail = stripHtml(patientEmail).slice(0, 100);
+    const cleanPhone = stripHtml(patientPhone).slice(0, 25);
+    const cleanReason = stripHtml(reason).slice(0, 1000);
+    const cleanSymptoms = stripHtml(symptoms).slice(0, 1000);
+    const cleanSummary = stripHtml(symptomSummary).slice(0, 2000);
+
+    if (!cleanName || !cleanEmail || !cleanPhone || !cleanReason) {
+      setErrorMsg('Please fill in all required patient fields (*).');
+      return;
+    }
+
+    if (!isValidEmail(cleanEmail)) {
+      setErrorMsg('Please enter a valid patient email address.');
+      return;
+    }
+
+    if (!isValidPhone(cleanPhone)) {
+      setErrorMsg('Please enter a valid contact phone number.');
+      return;
+    }
+
+    const numAge = Math.min(Math.max(Number(age) || 18, 0), 125);
 
     setIsSubmitting(true);
     setErrorMsg('');
@@ -149,19 +178,19 @@ export const AppointmentBookingPage: React.FC = () => {
     const activeService = services.find(s => s.id === selectedServiceId);
 
     const bookingPayload = {
-      patientName,
-      patientEmail,
-      patientPhone,
-      age: Number(age),
+      patientName: cleanName,
+      patientEmail: cleanEmail,
+      patientPhone: cleanPhone,
+      age: numAge,
       gender,
       serviceId: selectedServiceId,
       serviceTitle: activeService?.title || 'General Consultation',
       appointmentDate: selectedDate,
       appointmentTime: selectedTime.trim().split(' ')[0],
-      reason,
-      symptoms: symptoms || reason,
-      symptomSummary: symptomSummary || symptoms || reason,
-      documentUrl: documentFile ? `local-upload://${documentFile.name}` : undefined,
+      reason: cleanReason,
+      symptoms: cleanSymptoms || cleanReason,
+      symptomSummary: cleanSummary || cleanSymptoms || cleanReason,
+      documentUrl: documentFile ? `local-upload://${documentFile.name.replace(/[^a-zA-Z0-9._-]/g, '_')}` : undefined,
     };
 
     const res = await DataService.createAppointment(bookingPayload);

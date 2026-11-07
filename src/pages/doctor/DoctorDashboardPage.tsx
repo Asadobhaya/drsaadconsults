@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 import { DataService } from '../../services/dataService';
 import { EmailService } from '../../services/emailService';
+import { isSupabaseConfigured, supabase } from '../../lib/supabase';
 import { 
   Appointment, 
   AppointmentStatus, 
@@ -55,13 +56,31 @@ const format12Hour = (time24: string): string => {
 export const DoctorDashboardPage: React.FC = () => {
   const navigate = useNavigate();
 
-  // Auth Guard
+  // Auth Guard with Expiry Verification
   useEffect(() => {
     const isAuth = sessionStorage.getItem('saad_doctor_auth');
-    if (!isAuth) {
-      navigate('/login');
+    const expiresAt = sessionStorage.getItem('saad_doctor_session_expires');
+
+    if (!isAuth || !expiresAt || Date.now() > Number(expiresAt)) {
+      sessionStorage.removeItem('saad_doctor_auth');
+      sessionStorage.removeItem('saad_doctor_email');
+      sessionStorage.removeItem('saad_doctor_uid');
+      sessionStorage.removeItem('saad_doctor_session_expires');
+      navigate('/login?session_expired=true', { replace: true });
     }
   }, [navigate]);
+
+  const handleLogout = async () => {
+    try {
+      if (isSupabaseConfigured) {
+        await supabase.auth.signOut();
+      }
+    } catch (e) {
+      // Ignore network errors on logout
+    }
+    sessionStorage.clear();
+    navigate('/login', { replace: true });
+  };
 
   // Dashboard Active Tab State
   const [activeTab, setActiveTab] = useState<'overview' | 'appointments' | 'calendar' | 'availability' | 'services' | 'content' | 'symptoms' | 'messages' | 'audit'>('overview');
@@ -124,11 +143,6 @@ export const DoctorDashboardPage: React.FC = () => {
   const triggerToast = (msg: string) => {
     setSaveToast(msg);
     setTimeout(() => setSaveToast(''), 3000);
-  };
-
-  const handleLogout = () => {
-    sessionStorage.removeItem('saad_doctor_auth');
-    navigate('/login');
   };
 
   const handleStatusChange = async (aptId: string, status: AppointmentStatus) => {

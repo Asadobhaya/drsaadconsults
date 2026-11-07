@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Phone, Mail, MapPin, Send, MessageCircle, Clock, CheckCircle2, AlertCircle } from 'lucide-react';
 import { DataService } from '../services/dataService';
 import { EmailService } from '../services/emailService';
 import { DoctorProfile } from '../types';
+import { isValidEmail, isValidPhone, rateLimiter, stripHtml } from '../lib/security';
 
 export const ContactPage: React.FC = () => {
+  const navigate = useNavigate();
   const [profile, setProfile] = useState<DoctorProfile | null>(null);
   
   // Contact form fields
@@ -25,18 +28,42 @@ export const ContactPage: React.FC = () => {
   const handleSubmitMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg('');
-    if (!name || !email || !phone || !message) {
-      setErrorMsg('Please fill in all required fields.');
+
+    // Rate Limiting (anti-spam bot defense: 3 messages per 10 minutes)
+    const rateCheck = rateLimiter.isAllowed('contact-form', 3, 10 * 60 * 1000);
+    if (!rateCheck.allowed) {
+      setErrorMsg(`You have reached the submission limit. Please wait ${rateCheck.retryAfterSec} seconds before sending another message.`);
+      return;
+    }
+
+    const cleanName = stripHtml(name).slice(0, 80);
+    const cleanEmail = stripHtml(email).slice(0, 100);
+    const cleanPhone = stripHtml(phone).slice(0, 25);
+    const cleanSubject = stripHtml(subject).slice(0, 120);
+    const cleanMessage = stripHtml(message).slice(0, 2000);
+
+    if (!cleanName || !cleanEmail || !cleanPhone || !cleanMessage) {
+      setErrorMsg('Please fill in all required fields (*).');
+      return;
+    }
+
+    if (!isValidEmail(cleanEmail)) {
+      setErrorMsg('Please provide a valid email address.');
+      return;
+    }
+
+    if (!isValidPhone(cleanPhone)) {
+      setErrorMsg('Please provide a valid phone number (8-15 digits).');
       return;
     }
 
     setLoading(true);
     const newMsg = await DataService.createMessage({
-      name,
-      email,
-      phone,
-      subject: subject || 'General Inquiry',
-      message,
+      name: cleanName,
+      email: cleanEmail,
+      phone: cleanPhone,
+      subject: cleanSubject || 'General Inquiry',
+      message: cleanMessage,
     });
 
     // Send via Netlify Forms natively
@@ -61,7 +88,7 @@ export const ContactPage: React.FC = () => {
     await EmailService.sendContactMessageNotification(newMsg);
 
     setLoading(false);
-    setSubmitted(true);
+    navigate('/thank-you', { state: { type: 'contact', name: cleanName } });
   };
 
   const handleWhatsAppClick = () => {
