@@ -58,3 +58,20 @@
     display: block !important;
   }
 }
+
+/* Floating SaadCare Assistant - Anchored strictly to bottom right */
+.saadcare-chatbot-container {
+  position: fixed !important;
+  bottom: 1.25rem !important;
+  right: 1.25rem !important;
+  left: auto !important;
+  top: auto !important;
+  z-index: 50 !important;
+}
+
+@media (min-width: 640px) {
+  .saadcare-chatbot-container {
+    bottom: 1.5rem !important;
+    right: 1.5rem !important;
+  }
+}

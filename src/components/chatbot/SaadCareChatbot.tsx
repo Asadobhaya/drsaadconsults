@@ -97,25 +97,28 @@ export const SaadCareChatbot: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-50 no-print">
-      {/* Floating Trigger Button */}
+    <div 
+      className="saadcare-chatbot-container fixed bottom-6 right-6 z-50 no-print"
+      style={{ position: 'fixed', bottom: '1.25rem', right: '1.25rem', left: 'auto', top: 'auto', zIndex: 50 }}
+    >
+      {/* Compact Floating Trigger Button */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="group relative flex items-center gap-2 sm:gap-2.5 bg-gradient-to-r from-medical-600 to-teal-600 text-white font-semibold text-xs sm:text-sm px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full shadow-lg shadow-medical-600/30 hover:shadow-xl hover:shadow-medical-600/40 hover:scale-105 active:scale-95 transition-all duration-200"
+          className="group relative flex items-center gap-2 bg-gradient-to-r from-medical-600 to-teal-600 text-white font-semibold text-xs px-3 py-2 sm:px-3.5 sm:py-2 rounded-full shadow-md shadow-medical-600/25 hover:shadow-lg hover:shadow-medical-600/35 hover:scale-105 active:scale-95 transition-all duration-200"
           aria-label="Open SaadCare Assistant"
         >
           <div className="relative">
-            <Bot className="w-4 h-4 sm:w-5 sm:h-5" />
-            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-400 rounded-full ring-2 ring-white animate-ping" />
+            <Bot className="w-4 h-4" />
+            <span className="absolute -top-1 -right-1 w-2 h-2 bg-emerald-400 rounded-full ring-2 ring-white animate-ping" />
           </div>
-          <span>SaadCare Assistant</span>
+          <span className="tracking-tight font-medium">SaadCare Assistant</span>
         </button>
       )}
 
-      {/* Chat Drawer Window */}
+      {/* Chat Drawer Window (Decreased compact size: 340px width x 470px height) */}
       {isOpen && (
-        <div className="w-[calc(100vw-2rem)] sm:w-[380px] max-w-[380px] h-[520px] max-h-[80vh] bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden animate-in zoom-in-95 duration-200 origin-bottom-right">
+        <div className="w-[calc(100vw-2.5rem)] sm:w-[340px] max-w-[340px] h-[470px] max-h-[75vh] bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden animate-in zoom-in-95 duration-200 origin-bottom-right">
           
           {/* Header */}
           <div className="bg-gradient-to-r from-medical-700 via-medical-600 to-teal-600 text-white p-4 flex items-center justify-between shadow-md">
