@@ -58,39 +58,3 @@
     display: block !important;
   }
 }
-
-/* Floating Widgets Layout: SaadCare Assistant (Bottom-Left) vs Chatzy Chatbot (Bottom-Right) */
-.saadcare-assistant-root,
-div:has(> button[aria-label="Open SaadCare Assistant"]) {
-  position: fixed !important;
-  left: 1.5rem !important;
-  right: auto !important;
-  bottom: 1.5rem !important;
-  z-index: 40 !important;
-}
-
-@media (max-width: 640px) {
-  .saadcare-assistant-root,
-  div:has(> button[aria-label="Open SaadCare Assistant"]) {
-    left: 1rem !important;
-    right: auto !important;
-    bottom: 1.25rem !important;
-  }
-}
-
-.chatzy-chatbot-wrapper {
-  position: fixed !important;
-  right: 1.5rem !important;
-  left: auto !important;
-  bottom: 1.5rem !important;
-  z-index: 999999999 !important;
-  margin: 0 !important;
-}
-
-@media (max-width: 640px) {
-  .chatzy-chatbot-wrapper {
-    right: 1rem !important;
-    bottom: 1.25rem !important;
-    margin: 0 !important;
-  }
-}

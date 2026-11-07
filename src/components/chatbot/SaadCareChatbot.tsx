@@ -97,7 +97,7 @@ export const SaadCareChatbot: React.FC = () => {
   };
 
   return (
-    <div className="saadcare-assistant-root fixed bottom-5 left-4 sm:bottom-6 sm:left-6 z-40 no-print">
+    <div className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-50 no-print">
       {/* Floating Trigger Button */}
       {!isOpen && (
         <button
@@ -115,7 +115,7 @@ export const SaadCareChatbot: React.FC = () => {
 
       {/* Chat Drawer Window */}
       {isOpen && (
-        <div className="w-[calc(100vw-2rem)] sm:w-[380px] max-w-[380px] h-[520px] max-h-[80vh] bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden animate-in zoom-in-95 duration-200 origin-bottom-left">
+        <div className="w-[calc(100vw-2rem)] sm:w-[380px] max-w-[380px] h-[520px] max-h-[80vh] bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden animate-in zoom-in-95 duration-200 origin-bottom-right">
           
           {/* Header */}
           <div className="bg-gradient-to-r from-medical-700 via-medical-600 to-teal-600 text-white p-4 flex items-center justify-between shadow-md">
