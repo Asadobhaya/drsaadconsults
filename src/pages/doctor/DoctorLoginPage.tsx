@@ -166,7 +166,7 @@ export const DoctorLoginPage: React.FC = () => {
       <div className="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-card space-y-6">
         
         <div className="text-center space-y-2">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-medical-600 to-teal-600 text-white flex items-center justify-center mx-auto shadow-md">
+          <div className="w-12 h-12 rounded-2xl bg-brand text-white flex items-center justify-center mx-auto shadow-soft">
             <Activity className="w-7 h-7 stroke-[2.5]" />
           </div>
           <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">

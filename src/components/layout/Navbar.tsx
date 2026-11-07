@@ -19,25 +19,28 @@ export const Navbar: React.FC = () => {
   ];
 
   return (
-    <nav className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <nav className="sticky top-0 z-40 bg-surface/95 backdrop-blur-md border-b border-border shadow-soft">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           
           {/* Brand Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-medical-600 via-medical-500 to-teal-500 flex items-center justify-center text-white shadow-md shadow-medical-500/20 group-hover:scale-105 transition-transform duration-200">
+            <div className="w-11 h-11 rounded-xl bg-brand flex items-center justify-center text-white shadow-soft group-hover:bg-brand-hover transition-colors duration-200">
               <Activity className="w-6 h-6 stroke-[2.5]" />
             </div>
             <div>
-              <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-slate-900 text-lg tracking-tight group-hover:text-medical-600 transition">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className="font-extrabold text-text text-lg tracking-tight group-hover:text-brand transition">
                   Dr. Muhammad Saad Obhaya
                 </span>
-                <span className="bg-medical-100 text-medical-800 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+                <span className="bg-tint text-brand text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
                   MBBS
                 </span>
+                <span className="bg-tint text-brand text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider hidden sm:inline-block">
+                  PMDC Reg: 962063-01-M
+                </span>
               </div>
-              <p className="text-xs text-slate-500 font-medium flex items-center gap-1">
+              <p className="text-xs text-muted font-medium flex items-center gap-1">
                 <span>Sir Ganga Ram Hospital, Lahore</span>
               </p>
             </div>
@@ -51,7 +54,7 @@ export const Navbar: React.FC = () => {
                   <Link
                     key={link.path}
                     to={link.path}
-                    className="ml-2 inline-flex items-center gap-2 bg-medical-600 hover:bg-medical-700 text-white font-semibold text-sm px-4 py-2.5 rounded-xl shadow-md shadow-medical-600/20 hover:shadow-lg hover:shadow-medical-600/30 transition-all duration-200 active:scale-95"
+                    className="ml-2 inline-flex items-center gap-2 btn-accent font-bold text-sm px-4 py-2.5 rounded-xl shadow-soft transition-all duration-200 active:scale-95"
                   >
                     <Calendar className="w-4 h-4" />
                     {link.name}
@@ -65,8 +68,8 @@ export const Navbar: React.FC = () => {
                   to={link.path}
                   className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isActive(link.path)
-                      ? 'text-medical-600 bg-medical-50 font-semibold'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                      ? 'text-brand bg-tint font-bold'
+                      : 'text-text hover:text-brand hover:underline'
                   }`}
                 >
                   {link.name}
@@ -77,7 +80,7 @@ export const Navbar: React.FC = () => {
             {/* Track Appointment Link */}
             <Link
               to="/track-appointment"
-              className="text-xs font-semibold text-slate-500 hover:text-medical-700 bg-slate-100 hover:bg-medical-50 px-3 py-2 rounded-lg border border-slate-200 transition ml-1"
+              className="text-xs font-semibold text-muted hover:text-brand bg-surface hover:bg-tint px-3 py-2 rounded-lg border border-border transition ml-1"
               title="Track your existing appointment status"
             >
               Track Booking
@@ -86,7 +89,7 @@ export const Navbar: React.FC = () => {
             {/* Doctor Login */}
             <Link
               to="/login"
-              className="text-slate-400 hover:text-slate-700 p-2 rounded-lg transition"
+              className="text-muted hover:text-brand p-2 rounded-lg transition"
               title="Doctor Portal Login"
             >
               <UserCheck className="w-5 h-5" />
@@ -97,13 +100,13 @@ export const Navbar: React.FC = () => {
           <div className="lg:hidden flex items-center gap-2">
             <Link
               to="/book"
-              className="bg-medical-600 text-white text-xs font-semibold px-3 py-2 rounded-lg shadow"
+              className="btn-accent text-xs font-bold px-3 py-2 rounded-lg shadow-soft"
             >
               Book
             </Link>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition"
+              className="p-2 rounded-lg text-text hover:bg-tint transition"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -114,7 +117,7 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-2 shadow-xl animate-in slide-in-from-top duration-200">
+        <div className="lg:hidden bg-surface border-b border-border px-4 pt-3 pb-6 space-y-2 shadow-card animate-in slide-in-from-top duration-200">
           {navLinks.map((link) => (
             <Link
               key={link.path}
@@ -122,25 +125,25 @@ export const Navbar: React.FC = () => {
               onClick={() => setMobileMenuOpen(false)}
               className={`block px-4 py-2.5 rounded-xl text-base font-medium transition ${
                 isActive(link.path)
-                  ? 'text-medical-600 bg-medical-50 font-bold'
-                  : 'text-slate-700 hover:bg-slate-50'
+                  ? 'text-brand bg-tint font-bold'
+                  : 'text-text hover:bg-tint'
               }`}
             >
               {link.name}
             </Link>
           ))}
-          <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
+          <div className="pt-3 border-t border-border flex flex-col gap-2">
             <Link
               to="/track-appointment"
               onClick={() => setMobileMenuOpen(false)}
-              className="block text-center w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm rounded-xl transition"
+              className="block text-center w-full py-2.5 bg-tint hover:bg-border text-brand font-semibold text-sm rounded-xl transition"
             >
               Track Existing Booking
             </Link>
             <Link
               to="/login"
               onClick={() => setMobileMenuOpen(false)}
-              className="block text-center w-full py-2.5 text-slate-500 hover:text-slate-800 text-xs font-semibold transition"
+              className="block text-center w-full py-2.5 text-muted hover:text-brand text-xs font-semibold transition"
             >
               Doctor Portal Login
             </Link>

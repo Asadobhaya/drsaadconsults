@@ -738,7 +738,7 @@ export const AppointmentBookingPage: React.FC = () => {
             <button
               onClick={handleSubmitBooking}
               disabled={isSubmitting || !consentAccepted}
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-medical-600 to-teal-600 hover:from-medical-700 hover:to-teal-700 disabled:opacity-50 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition"
+              className="inline-flex items-center gap-2 btn-accent disabled:opacity-50 text-sm px-8 py-3.5 rounded-xl shadow-soft transition"
             >
               {isSubmitting ? 'Confirming Appointment...' : 'Submit Appointment Request'}
             </button>

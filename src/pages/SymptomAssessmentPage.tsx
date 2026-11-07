@@ -323,7 +323,7 @@ export const SymptomAssessmentPage: React.FC = () => {
             </button>
             <button
               onClick={handleRunAssessment}
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-bold text-xs px-7 py-3.5 rounded-xl shadow-lg transition"
+              className="inline-flex items-center gap-2 bg-brand hover:bg-brand-hover text-white font-bold text-xs px-7 py-3.5 rounded-xl shadow-soft transition"
             >
               Generate Triage Assessment <Stethoscope className="w-4 h-4" />
             </button>

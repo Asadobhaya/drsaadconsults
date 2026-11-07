@@ -11,12 +11,12 @@ export const Footer: React.FC = () => {
           {/* Column 1: Doctor Profile & Brand */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-medical-500 text-white flex items-center justify-center font-bold">
+              <div className="w-10 h-10 rounded-xl bg-brand text-white flex items-center justify-center font-bold">
                 <Activity className="w-6 h-6 stroke-[2.5]" />
               </div>
               <div>
                 <h3 className="font-bold text-white text-lg tracking-tight">Dr. Muhammad Saad Obhaya</h3>
-                <p className="text-xs text-medical-400 font-semibold">MBBS • Sir Ganga Ram Hospital</p>
+                <p className="text-xs text-tint font-semibold">MBBS • PMDC Reg: 962063-01-M • Sir Ganga Ram Hospital</p>
               </div>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
@@ -24,15 +24,15 @@ export const Footer: React.FC = () => {
             </p>
             <div className="pt-2 text-xs text-slate-400 space-y-2">
               <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-medical-400 shrink-0" />
+                <Phone className="w-4 h-4 text-tint shrink-0" />
                 <a href="tel:+923396999200" className="hover:text-white transition">+92 339 6999200</a>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-medical-400 shrink-0" />
+                <Mail className="w-4 h-4 text-tint shrink-0" />
                 <a href="mailto:drsaadobhaya@gmail.com" className="hover:text-white transition">drsaadobhaya@gmail.com</a>
               </div>
               <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-medical-400 shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-tint shrink-0 mt-0.5" />
                 <span>Sir Ganga Ram Hospital, Lahore, Pakistan</span>
               </div>
             </div>
@@ -92,7 +92,7 @@ export const Footer: React.FC = () => {
         {/* Footer Bottom */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>© {new Date().getFullYear()} Dr. Muhammad Saad Obhaya. All rights reserved.</p>
-          <p>MBBS — Sir Ganga Ram Hospital, Lahore, Pakistan</p>
+          <p>MBBS | PMDC Reg: 962063-01-M — Sir Ganga Ram Hospital, Lahore, Pakistan</p>
         </div>
       </div>
     </footer>

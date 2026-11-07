@@ -7,7 +7,7 @@ export const NotFoundPage: React.FC = () => {
     <div className="max-w-2xl mx-auto py-20 px-4 sm:px-6 lg:px-8 text-center space-y-8">
       
       {/* 404 Visual Icon */}
-      <div className="relative mx-auto w-24 h-24 rounded-3xl bg-gradient-to-tr from-medical-600 via-medical-500 to-teal-600 flex items-center justify-center text-white shadow-xl shadow-medical-500/20">
+      <div className="relative mx-auto w-24 h-24 rounded-3xl bg-brand flex items-center justify-center text-white shadow-soft">
         <Stethoscope className="w-12 h-12 stroke-[2.2]" />
         <span className="absolute -top-2 -right-2 bg-slate-900 text-white text-[11px] font-extrabold px-2.5 py-1 rounded-full border-2 border-white shadow">
           404

@@ -160,7 +160,7 @@ export const SymptomResultPage: React.FC = () => {
 
             <button
               onClick={handleBookWithSummary}
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-medical-600 to-teal-600 hover:from-medical-700 hover:to-teal-700 text-white font-bold text-xs px-6 py-3 rounded-xl shadow transition"
+              className="inline-flex items-center gap-2 btn-accent font-bold text-xs px-6 py-3 rounded-xl shadow-soft transition"
             >
               <Calendar className="w-4 h-4" /> Book Appointment Using This Summary
             </button>

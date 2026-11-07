@@ -22,37 +22,37 @@ export const AboutPage: React.FC = () => {
             <img
               src={profile.avatarUrl}
               alt="Dr. Muhammad Saad Obhaya"
-              className="w-36 h-36 rounded-3xl object-cover object-top border-4 border-medical-100 shadow-md shrink-0"
+              className="w-36 h-36 rounded-3xl object-cover object-top border-4 border-tint shadow-soft shrink-0"
             />
           ) : (
-            <div className="w-32 h-32 rounded-3xl bg-gradient-to-br from-medical-600 to-teal-600 text-white flex items-center justify-center font-extrabold text-4xl shadow-md shrink-0">
+            <div className="w-32 h-32 rounded-3xl bg-brand text-white flex items-center justify-center font-extrabold text-4xl shadow-soft shrink-0">
               SO
             </div>
           )}
 
           <div className="space-y-2 flex-1">
-            <div className="inline-flex items-center gap-2 bg-medical-50 text-medical-800 px-3 py-1 rounded-full text-xs font-bold">
-              Verified Medical Credentials
+            <div className="inline-flex items-center gap-2 bg-tint text-brand px-3 py-1 rounded-full text-xs font-bold">
+              Verified Medical Credentials • PMDC Reg: 962063-01-M
             </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-text tracking-tight">
               Dr. Muhammad Saad Obhaya
             </h1>
-            <p className="text-sm font-bold text-medical-600">MBBS</p>
-            <p className="text-sm text-slate-600 font-medium">
+            <p className="text-sm font-bold text-brand">MBBS • PMDC Reg: 962063-01-M</p>
+            <p className="text-sm text-muted font-medium">
               Sir Ganga Ram Hospital, Lahore, Pakistan
             </p>
             
             <div className="pt-4 flex flex-wrap justify-center sm:justify-start gap-3">
               <Link
                 to="/book"
-                className="inline-flex items-center gap-2 bg-medical-600 hover:bg-medical-700 text-white font-bold text-xs px-5 py-2.5 rounded-xl shadow transition"
+                className="inline-flex items-center gap-2 btn-accent font-bold text-xs px-5 py-2.5 rounded-xl shadow-soft active:scale-95 transition"
               >
                 <Calendar className="w-4 h-4" />
                 Book Consultation
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs px-4 py-2.5 rounded-xl transition"
+                className="inline-flex items-center gap-1.5 btn-secondary text-xs px-4 py-2.5 rounded-xl transition"
               >
                 Contact Information
               </Link>
@@ -74,43 +74,56 @@ export const AboutPage: React.FC = () => {
       </div>
 
       {/* Verified Medical Background */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         
         {/* Education */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-soft space-y-4">
-          <div className="w-10 h-10 rounded-xl bg-medical-50 text-medical-600 flex items-center justify-center">
+        <div className="bg-surface p-6 rounded-2xl border border-border shadow-soft space-y-4">
+          <div className="w-10 h-10 rounded-xl bg-tint text-brand flex items-center justify-center">
             <GraduationCap className="w-5 h-5" />
           </div>
-          <h3 className="text-lg font-bold text-slate-900">Medical Education</h3>
+          <h3 className="text-lg font-bold text-text">Medical Education</h3>
           <div className="space-y-2 text-xs">
-            <p className="font-bold text-slate-800 text-sm">Tashkent State Medical Academy</p>
-            <p className="text-slate-500">Degree: MBBS (Bachelor of Medicine, Bachelor of Surgery)</p>
-            <p className="text-slate-500">Location: Tashkent, Uzbekistan</p>
+            <p className="font-bold text-text text-sm">Tashkent State Medical Academy</p>
+            <p className="text-muted">Degree: MBBS (Bachelor of Medicine, Surgery)</p>
+            <p className="text-muted">Location: Tashkent, Uzbekistan</p>
           </div>
         </div>
 
         {/* Hospital Affiliation */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-soft space-y-4">
-          <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center">
+        <div className="bg-surface p-6 rounded-2xl border border-border shadow-soft space-y-4">
+          <div className="w-10 h-10 rounded-xl bg-tint text-brand flex items-center justify-center">
             <Building2 className="w-5 h-5" />
           </div>
-          <h3 className="text-lg font-bold text-slate-900">Current Position</h3>
+          <h3 className="text-lg font-bold text-text">Current Position</h3>
           <div className="space-y-2 text-xs">
-            <p className="font-bold text-slate-800 text-sm">Sir Ganga Ram Hospital</p>
-            <p className="text-slate-500">Medical Physician</p>
-            <p className="text-slate-500">Location: Lahore, Pakistan</p>
+            <p className="font-bold text-text text-sm">Sir Ganga Ram Hospital</p>
+            <p className="text-muted">Medical Physician</p>
+            <p className="text-muted">Location: Lahore, Pakistan</p>
+          </div>
+        </div>
+
+        {/* PMDC Registration */}
+        <div className="bg-surface p-6 rounded-2xl border border-border shadow-soft space-y-4">
+          <div className="w-10 h-10 rounded-xl bg-tint text-brand flex items-center justify-center">
+            <Shield className="w-5 h-5" />
+          </div>
+          <h3 className="text-lg font-bold text-text">PMDC Registration</h3>
+          <div className="space-y-2 text-xs">
+            <p className="font-bold text-text text-sm">Reg: 962063-01-M</p>
+            <p className="text-muted">Authority: Pakistan Medical Commission</p>
+            <p className="text-muted">Status: Active Registered Practitioner</p>
           </div>
         </div>
 
       </div>
 
-      {/* Verified Data Note Placeholder */}
-      <div className="p-6 rounded-2xl bg-slate-100 border border-slate-200 text-xs text-slate-600 space-y-2">
-        <h4 className="font-bold text-slate-800 flex items-center gap-1.5">
-          <Shield className="w-4 h-4 text-medical-600" /> Information Verification Standard
+      {/* Verified Data Note */}
+      <div className="p-6 rounded-2xl bg-tint/60 border border-border text-xs text-muted space-y-2">
+        <h4 className="font-bold text-text flex items-center gap-1.5">
+          <Shield className="w-4 h-4 text-brand" /> Information Verification Standard
         </h4>
         <p>
-          In accordance with strict medical website standards, only verified qualifications (MBBS, Tashkent State Medical Academy, Sir Ganga Ram Hospital, Lahore) are published. Additional specialty certifications, awards, or clinical sub-specializations will be updated after official verification.
+          In accordance with PMDC (Pakistan Medical &amp; Dental Commission) and medical ethics standards, only verified clinical credentials (MBBS, PMDC Reg: 962063-01-M, Tashkent State Medical Academy, Sir Ganga Ram Hospital, Lahore) are published.
         </p>
       </div>
 
